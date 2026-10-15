@@ -1,0 +1,3 @@
+Reporte: Resumen semanal
+Pruebas ejecutadas: 3
+Estado general: estable

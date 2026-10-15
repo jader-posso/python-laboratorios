@@ -1,0 +1,3 @@
+Login | aprobado | Acceso correcto
+Pago | fallida | Timeout del servidor
+Registro | aprobado | Sin errores
