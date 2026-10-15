@@ -1,0 +1,11 @@
+num1 = int(input("Ingresa el numero 1: "))
+num2 = int(input("Ingresa el numero 2: "))
+
+print("Los numeros son: ", num1, " y ", num2) 
+print("LOs diferentes resultados son: ")
+print("Suma: ", num1 + num2)
+print("Resta: ", num1 - num2)
+print("Multiplicacion: ", num1 * num2)
+print("Division: ", num1 / num2)
+print("Division entera: ", num1 // num2)
+print("Residuo: ", num1 % num2 )
