@@ -19,6 +19,8 @@ gestor_inventario/
 ├── reportes.py
 ├── pruebas_independencia.py
 ├── pruebas_serializacion.py
+├── pruebas_gestor.py
+├── EVIDENCIA_PRUEBAS.md
 ├── datos/
 │   └── productos.json      (se crea al guardar)
 ├── reportes/
@@ -35,6 +37,7 @@ gestor_inventario/
 | `main.py` | Menú, lectura de datos con `input()`, coordinación de operaciones y mensajes al usuario. |
 | `pruebas_independencia.py` | Comprueba que dos inventarios no comparten datos (del Laboratorio 3). |
 | `pruebas_serializacion.py` | Comprueba que un producto se reconstruye igual desde su diccionario. |
+| `pruebas_gestor.py` | Ejecuta las pruebas obligatorias, la numérica y la de archivos dañados sobre una copia temporal del proyecto y guarda la salida en `EVIDENCIA_PRUEBAS.md`. |
 
 Reglas de separación que se cumplen:
 
@@ -51,6 +54,7 @@ Requiere Python 3.8 o superior, sin dependencias externas. Se puede ejecutar des
 python main.py
 python pruebas_serializacion.py
 python pruebas_independencia.py
+python pruebas_gestor.py
 ```
 
 ## Funcionamiento
@@ -93,6 +97,8 @@ Columnas: `codigo,nombre,categoria,precio,cantidad,valor_inventario`, donde `val
 Las 9 etapas del laboratorio están completas y todas las pruebas obligatorias pasan.
 
 ## Pruebas realizadas
+
+La salida completa de cada prueba está en [EVIDENCIA_PRUEBAS.md](EVIDENCIA_PRUEBAS.md) y se puede regenerar con `python pruebas_gestor.py`.
 
 Las pruebas de archivos dañados y de error de escritura se hicieron sobre **copias** del proyecto, nunca sobre la única versión válida de los datos.
 
