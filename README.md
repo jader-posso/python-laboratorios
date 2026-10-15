@@ -1,0 +1,48 @@
+# Laboratorios de Python — Explorer, Integrator, Innovator
+
+**Aprendiz:** Jader Alonso Posso Tuberquia — **Ficha:** 3388087
+
+Repositorio acumulativo con los ejercicios y proyectos de los cuatro laboratorios. Cada carpeta conserva su versión del proyecto, para comparar cómo evolucionó el gestor de inventario: desde un script con listas y diccionarios hasta una aplicación orientada a objetos que guarda sus datos en JSON.
+
+Requisitos: Python 3.8 o superior. No hay dependencias externas. Según el equipo, el comando puede ser `python`, `py` o `python3`.
+
+| Laboratorio | Tema | Proyecto final | Cómo ejecutarlo |
+|---|---|---|---|
+| [Laboratorio 01](laboratorio-01/) | Variables, tipos, operadores e `input()` | Cotizador de compra | `cd laboratorio-01` → `python cotizador_compra.py` |
+| [Laboratorio 02](laboratorio-02/) | Decisiones, ciclos, colecciones y comprensiones | Gestor de inventario en un archivo | `cd laboratorio-02` → `python gestor_inventario.py` |
+| [Laboratorio 03](laboratorio-03/) | Funciones, módulos y POO | [Gestor orientado a objetos](laboratorio-03/gestor_inventario/) | `cd laboratorio-03/gestor_inventario` → `python main.py` |
+| [Laboratorio 04](laboratorio-04/) | Excepciones, archivos, JSON, CSV y POO intermedia | [Gestor persistente](laboratorio-04/gestor_inventario/) | `cd laboratorio-04/gestor_inventario` → `python main.py` |
+
+Los ejercicios de cada práctica se ejecutan igual, desde su carpeta: `python nombre_del_archivo.py`.
+
+## Estructura
+
+```text
+python-laboratorios/
+├── README.md
+├── laboratorio-01/            ejercicios de las prácticas 1.1 a 1.4 y cotizador_compra.py
+├── laboratorio-02/            ejercicios de las prácticas 2.1 a 2.8 y gestor_inventario.py
+├── laboratorio-03/
+│   ├── practica-3-1/ … practica-3-4/
+│   └── gestor_inventario/     producto.py, inventario.py, main.py
+└── laboratorio-04/
+    ├── practicas/
+    │   └── practica-4-1/ … practica-4-4/
+    └── gestor_inventario/     + almacenamiento.py, reportes.py, pruebas_gestor.py
+```
+
+## Evolución del gestor de inventario
+
+| Versión | Cómo representa los productos | Qué agregó |
+|---|---|---|
+| Lab 02 | Lista de diccionarios en un solo archivo | Menú con `while`, validaciones, categorías en una tupla, informes con comprensiones |
+| Lab 03 | Objetos `Producto` dentro de un objeto `Inventario` | Responsabilidades separadas en módulos, validación en el constructor, propiedades y encapsulamiento |
+| Lab 04 | Las mismas clases, convertidas a diccionarios para JSON | Persistencia entre ejecuciones, exportación CSV, manejo de excepciones y protección de archivos dañados |
+
+## Pruebas
+
+| Laboratorio | Pruebas | Resultado |
+|---|---|---|
+| 01 | Los 4 casos del cotizador | 180000.0, 150000.0, 300000.0 y 119000.0 (100000 con 19 % de impuesto) |
+| 03 | Pruebas obligatorias y `pruebas_independencia.py` | Ver el [README del gestor](laboratorio-03/gestor_inventario/README.md). Independencia: `Primero: 1`, `Segundo: 0` |
+| 04 | 19 pruebas obligatorias, prueba numérica, archivos dañados y error de escritura | Ver el [README del gestor](laboratorio-04/gestor_inventario/README.md) y la [evidencia completa](laboratorio-04/gestor_inventario/EVIDENCIA_PRUEBAS.md). Se regenera con `python pruebas_gestor.py` |
