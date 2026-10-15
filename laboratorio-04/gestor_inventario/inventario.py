@@ -55,7 +55,7 @@ class Inventario:
         return {
             "productos": len(self._productos),
             "unidades": sum(producto.cantidad for producto in self._productos),
-            "valor": sum(producto.calcular_valor() for producto in self._productos),
+            "valor": sum((producto.calcular_valor() for producto in self._productos), 0.0),
             "categorias": {producto.categoria for producto in self._productos},
         }
 

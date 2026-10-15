@@ -98,7 +98,7 @@ Las pruebas de archivos dañados y de error de escritura se hicieron sobre **cop
 
 | Situación | Resultado obtenido |
 |---|---|
-| Primera ejecución, JSON inexistente | "Inventario vacío." sin errores. |
+| Primera ejecución, JSON inexistente | "Inventario vacío." sin errores; el resumen muestra 0 productos y $0.0. |
 | Guardar productos | `productos.json` contiene todos los registros. |
 | Cerrar y reiniciar | "Se cargaron 3 productos." con sus datos. |
 | Registrar código duplicado (P001) | "Registro rechazado: el código P001 ya existe." El JSON no cambia. |
@@ -134,8 +134,7 @@ Productos registrados: 3
 Unidades disponibles: 6
 Valor del inventario: $1740000.0
 Categorías utilizadas (2): Componentes, Periféricos
-Sin existencias:
-- Mouse
+Sin existencias: Mouse
 ```
 
 Tras cerrar y reiniciar se obtienen los mismos resultados. Después de actualizar el Mouse a 5, guardar y reiniciar:

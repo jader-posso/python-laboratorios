@@ -189,6 +189,9 @@ def mostrar_resumen(inventario):
     print(f"Valor del inventario: ${datos['valor']}")
     print(f"Categorías utilizadas ({len(datos['categorias'])}): {categorias}")
 
+    agotados = [producto.nombre for producto in inventario.productos_sin_stock()]
+    print(f"Sin existencias: {', '.join(agotados) or 'Ninguno'}")
+
 
 def exportar(inventario):
     try:
