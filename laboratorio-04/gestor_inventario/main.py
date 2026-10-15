@@ -5,13 +5,20 @@
 #   conserva varios objetos Producto
 #   registra, busca, actualiza, elimina y consulta
 #
+# almacenamiento / reportes:
+#   leen y escriben archivos (JSON y CSV)
+#
 # main:
 #   solicita datos
 #   muestra menú
-#   informa los resultados
+#   coordina las operaciones e informa los resultados
 
-from producto import Producto, CATEGORIAS
+from producto import Producto, CATEGORIAS, validar_precio, validar_cantidad
 from inventario import Inventario
+from almacenamiento import cargar_inventario, guardar_inventario, ErrorAlmacenamiento, RUTA_JSON
+from reportes import exportar_csv, BASE_DIR
+
+OPCIONES_QUE_MODIFICAN = ("1", "4", "5", "8", "9")
 
 
 def mostrar_menu():
@@ -26,6 +33,8 @@ def mostrar_menu():
     print("5. Eliminar producto")
     print("6. Consultar productos sin stock")
     print("7. Resumen del inventario")
+    print("8. Guardar inventario")
+    print("9. Exportar reporte CSV")
     print("0. Salir")
 
 
@@ -37,8 +46,10 @@ def leer_cantidad():
             print("Debes escribir un número entero.")
             continue
 
-        if cantidad < 0:
-            print("La cantidad no puede ser negativa.")
+        try:
+            validar_cantidad(cantidad)
+        except ValueError as error:
+            print(error)
             continue
 
         return cantidad
@@ -52,8 +63,10 @@ def leer_precio():
             print("Debes escribir un número.")
             continue
 
-        if precio <= 0:
-            print("El precio debe ser mayor que cero.")
+        try:
+            validar_precio(precio)
+        except ValueError as error:
+            print(error)
             continue
 
         return precio
@@ -66,8 +79,26 @@ def mostrar_producto(producto):
     )
 
 
+def guardar(inventario):
+    # Devuelve True solo cuando la escritura terminó correctamente
+    try:
+        guardar_inventario(inventario)
+    except ErrorAlmacenamiento as error:
+        print(f"Error al guardar: {error}")
+        print("Los cambios podrían existir solamente en memoria.")
+        return False
+
+    print("Inventario guardado.")
+    return True
+
+
 def registrar(inventario):
     codigo = input("Código: ").strip()
+
+    if inventario.buscar_por_codigo(codigo) is not None:
+        print(f"Registro rechazado: el código {codigo} ya existe.")
+        return False
+
     nombre = input("Nombre: ").strip()
     print(f"Categorías permitidas: {', '.join(CATEGORIAS)}")
     categoria = input("Categoría: ").strip()
@@ -78,12 +109,14 @@ def registrar(inventario):
         producto = Producto(codigo, nombre, categoria, precio, cantidad)
     except ValueError as error:
         print(f"Registro rechazado: {error}")
-        return
+        return False
 
-    if inventario.registrar_producto(producto):
-        print("Producto registrado.")
-    else:
+    if not inventario.registrar_producto(producto):
         print(f"Registro rechazado: el código {producto.codigo} ya existe.")
+        return False
+
+    print("Producto registrado.")
+    return True
 
 
 def listar(inventario):
@@ -112,23 +145,27 @@ def actualizar(inventario):
 
     if inventario.buscar_por_codigo(codigo) is None:
         print(f"El producto {codigo} no existe.")
-        return
+        return False
 
     cantidad = leer_cantidad()
 
-    if inventario.actualizar_existencias(codigo, cantidad):
-        print("Existencias actualizadas.")
-    else:
+    if not inventario.actualizar_existencias(codigo, cantidad):
         print("Actualización rechazada.")
+        return False
+
+    print("Existencias actualizadas.")
+    return True
 
 
 def eliminar(inventario):
     codigo = input("Código: ").strip()
 
-    if inventario.eliminar_producto(codigo):
-        print("Producto eliminado.")
-    else:
+    if not inventario.eliminar_producto(codigo):
         print(f"El producto {codigo} no existe.")
+        return False
+
+    print("Producto eliminado.")
+    return True
 
 
 def mostrar_sin_stock(inventario):
@@ -153,29 +190,76 @@ def mostrar_resumen(inventario):
     print(f"Categorías utilizadas ({len(datos['categorias'])}): {categorias}")
 
 
+def exportar(inventario):
+    try:
+        ruta = exportar_csv(inventario)
+    except OSError as error:
+        print(f"No se pudo exportar el reporte: {error}")
+        return
+
+    print(f"Reporte exportado: {ruta.relative_to(BASE_DIR).as_posix()}")
+
+
+def iniciar():
+    # Devuelve (inventario, archivo_danado)
+    try:
+        inventario = cargar_inventario()
+    except ErrorAlmacenamiento as error:
+        print("ATENCIÓN: no se pudo cargar el inventario.")
+        print(error)
+        print(f"Revisa o restaura el archivo: {RUTA_JSON}")
+        print("Para no perder datos, el archivo no se modificará en esta sesión:")
+        print("las opciones que registran, cambian, guardan o exportan quedan bloqueadas.")
+        # Inventario vacío solo en memoria para las consultas; nunca se guarda
+        return Inventario(), True
+
+    cantidad = len(inventario.listar_productos())
+    if cantidad:
+        print(f"Se cargaron {cantidad} productos.")
+    else:
+        print("Inventario vacío.")
+    return inventario, False
+
+
 def main():
-    inventario = Inventario()
+    inventario, archivo_danado = iniciar()
+    cambios_sin_guardar = False
     opcion = ""
 
     while opcion != "0":
         mostrar_menu()
         opcion = input("Opción: ").strip()
 
+        if archivo_danado and opcion in OPCIONES_QUE_MODIFICAN:
+            print("Operación bloqueada: el archivo del inventario está dañado.")
+            print("Corrígelo o restáuralo y vuelve a iniciar el programa.")
+            continue
+
         if opcion == "1":
-            registrar(inventario)
+            if registrar(inventario):
+                cambios_sin_guardar = not guardar(inventario)
         elif opcion == "2":
             listar(inventario)
         elif opcion == "3":
             buscar(inventario)
         elif opcion == "4":
-            actualizar(inventario)
+            if actualizar(inventario):
+                cambios_sin_guardar = not guardar(inventario)
         elif opcion == "5":
-            eliminar(inventario)
+            if eliminar(inventario):
+                cambios_sin_guardar = not guardar(inventario)
         elif opcion == "6":
             mostrar_sin_stock(inventario)
         elif opcion == "7":
             mostrar_resumen(inventario)
+        elif opcion == "8":
+            cambios_sin_guardar = not guardar(inventario)
+        elif opcion == "9":
+            exportar(inventario)
         elif opcion == "0":
+            if cambios_sin_guardar:
+                print("Hay cambios sin guardar. Intentando guardar antes de salir...")
+                guardar(inventario)
             print("Programa finalizado.")
         else:
             print("Opción no válida.")

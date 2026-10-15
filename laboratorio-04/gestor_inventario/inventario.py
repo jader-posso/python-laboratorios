@@ -1,6 +1,9 @@
 # Inventario:
 #   conserva varios objetos Producto
 #   registra, busca, actualiza, elimina y consulta
+#   exporta su estado y se reconstruye desde datos
+
+from producto import Producto
 
 
 class Inventario:
@@ -55,3 +58,32 @@ class Inventario:
             "valor": sum(producto.calcular_valor() for producto in self._productos),
             "categorias": {producto.categoria for producto in self._productos},
         }
+
+    def exportar_datos(self):
+        # Diccionarios nuevos: quien los reciba no puede tocar los productos
+        return [producto.a_diccionario() for producto in self._productos]
+
+    @classmethod
+    def desde_datos(cls, registros):
+        # Se construye un inventario temporal; si algún registro falla se lanza
+        # ValueError y el inventario incompleto se descarta (no hay carga parcial).
+        if not isinstance(registros, list):
+            raise ValueError("Se esperaba una lista de productos.")
+
+        inventario = cls()
+
+        for numero, registro in enumerate(registros, start=1):
+            if not isinstance(registro, dict):
+                raise ValueError(f"Registro {numero}: no es un objeto con datos de producto.")
+
+            try:
+                producto = Producto.desde_diccionario(registro)
+            except KeyError as error:
+                raise ValueError(f"Registro {numero}: falta el campo {error}.") from None
+            except ValueError as error:
+                raise ValueError(f"Registro {numero}: {error}") from None
+
+            if not inventario.registrar_producto(producto):
+                raise ValueError(f"Registro {numero}: el código {producto.codigo} está repetido.")
+
+        return inventario
