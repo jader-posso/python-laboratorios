@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.tmp
+# Archivos que el gestor genera al usarse (no son código fuente)
+laboratorio-04/gestor_inventario/datos/
+laboratorio-04/gestor_inventario/reportes/
