@@ -35,13 +35,12 @@ Opción: Programa finalizado.
 
 Esperado: Registro rechazado.
 
-Entradas: `1 | P001 | Teclado | Periféricos | 85000 | 4 | 1 | P001 | Teclado | Periféricos | 85000 | 4 | 2 | 0`
+Entradas: `1 | P001 | Teclado | Periféricos | 85000 | 4 | 1 | P001 | 2 | 0`
 
 ```text
 Opción: Código: Nombre: Categorías permitidas: Periféricos, Componentes, Accesorios
 Categoría: Precio: Cantidad: Producto registrado.
-Opción: Código: Nombre: Categorías permitidas: Periféricos, Componentes, Accesorios
-Categoría: Precio: Cantidad: Registro rechazado: el código P001 ya existe.
+Opción: Código: Registro rechazado: el código P001 ya existe.
 Opción: P001 - Teclado - Periféricos - $85000.0 - 4 unidades
 Opción: Programa finalizado.
 ```

@@ -39,7 +39,7 @@ PRUEBAS = [
     ("Iniciar inventario vacío", "Listado vacío y resumen en cero", ["2", "7", "0"]),
     ("Registrar P001", "Registro aceptado", [*registrar(*TECLADO), "2", "0"]),
     ("Registrar nuevamente P001", "Registro rechazado",
-     [*registrar(*TECLADO), *registrar(*TECLADO), "2", "0"]),
+     [*registrar(*TECLADO), *registrar("P001"), "2", "0"]),
     ("Registrar código o nombre vacío", "Registro rechazado",
      [*registrar("   ", "Cable", "Accesorios", "1000", "1"),
       *registrar("P004", "", "Accesorios", "1000", "1"), "2", "0"]),

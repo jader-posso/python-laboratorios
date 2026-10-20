@@ -68,6 +68,13 @@ def mostrar_producto(producto):
 
 def registrar(inventario):
     codigo = input("Código: ").strip()
+
+    # Se avisa antes de pedir los demás datos; Inventario vuelve a
+    # comprobarlo al registrar
+    if inventario.buscar_por_codigo(codigo) is not None:
+        print(f"Registro rechazado: el código {codigo} ya existe.")
+        return
+
     nombre = input("Nombre: ").strip()
     print(f"Categorías permitidas: {', '.join(CATEGORIAS)}")
     categoria = input("Categoría: ").strip()
