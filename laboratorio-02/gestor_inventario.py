@@ -145,7 +145,7 @@ while opcion != "0":
             print("Productos:", len(productos))
             print("Unidades:", unidades)
             print("Valor del inventario: $" + str(valor_inventario))
-            print("Categorías utilizadas:", ", ".join(sorted(categorias_utilizadas)))
+            print("Categorías utilizadas (" + str(len(categorias_utilizadas)) + "):", ", ".join(sorted(categorias_utilizadas)))
     elif opcion == "0":
         print("Programa finalizado.")
     else:

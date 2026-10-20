@@ -209,12 +209,12 @@ Opción: Código: Nombre: Categoría: Precio: Cantidad: Producto registrado.
 Opción: Productos: 1
 Unidades: 4
 Valor del inventario: $340000.0
-Categorías utilizadas: Periféricos
+Categorías utilizadas (1): Periféricos
 Opción: Código: Nueva cantidad: Cantidad actualizada.
 Opción: Productos: 1
 Unidades: 1
 Valor del inventario: $85000.0
-Categorías utilizadas: Periféricos
+Categorías utilizadas (1): Periféricos
 Opción: Programa finalizado.
 ```
 
@@ -246,6 +246,6 @@ Opción: Sin existencias:
 Opción: Productos: 3
 Unidades: 6
 Valor del inventario: $1740000.0
-Categorías utilizadas: Componentes, Periféricos
+Categorías utilizadas (2): Componentes, Periféricos
 Opción: Programa finalizado.
 ```
