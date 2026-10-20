@@ -10,6 +10,7 @@ Aplicación de consola que registra, lista, busca, actualiza y elimina productos
 | `inventario.py` | Clase `Inventario`. Guarda su propia lista `self._productos` y hace el registro, la búsqueda, la actualización, la eliminación y los informes. |
 | `main.py` | Menú, lectura de datos con `input()` y mensajes al usuario. |
 | `pruebas_independencia.py` | Comprueba que dos inventarios no comparten datos. |
+| `pruebas_gestor.py` | Ejecuta las pruebas obligatorias, la comprobación numérica y la de independencia, y genera `EVIDENCIA_PRUEBAS.md`. |
 
 `Producto` e `Inventario` no usan `input()` ni imprimen nada: solo devuelven valores (`True`/`False`, objetos, `None` o un diccionario), y `main.py` decide qué mostrar.
 
@@ -20,6 +21,7 @@ Desde la carpeta `gestor_inventario`:
 ```
 python main.py
 python pruebas_independencia.py
+python pruebas_gestor.py
 ```
 
 No requiere instalar dependencias.
@@ -34,11 +36,13 @@ No requiere instalar dependencias.
 
 ## Pruebas realizadas
 
+La salida completa de cada prueba está en [EVIDENCIA_PRUEBAS.md](EVIDENCIA_PRUEBAS.md) y se regenera con `python pruebas_gestor.py`.
+
 | Caso | Resultado obtenido |
 |---|---|
-| Iniciar inventario vacío | "No hay productos registrados." y resumen con 0 productos, 0 unidades y $0 |
+| Iniciar inventario vacío | "No hay productos registrados." y resumen con 0 productos, 0 unidades y $0.0 |
 | Registrar P001 | Producto registrado |
-| Registrar nuevamente P001 | Registro rechazado: el código P001 ya existe |
+| Registrar nuevamente P001 | Registro rechazado: el código P001 ya existe (se avisa apenas se escribe el código) |
 | Código vacío o solo espacios | Registro rechazado: el código no puede estar vacío |
 | Nombre vacío | Registro rechazado: el nombre no puede estar vacío |
 | Categoría "Muebles" | Registro rechazado: categoría no permitida |
@@ -83,3 +87,16 @@ Valor del inventario: $1965000.0
 Primero: 1
 Segundo: 0
 ```
+
+## Comparación con el gestor del Laboratorio 02
+
+| Aspecto | Laboratorio 02 (procedural) | Laboratorio 03 (orientado a objetos) |
+|---|---|---|
+| Producto | Diccionario con claves de texto (`producto["precio"]`) | Objeto `Producto` con propiedades de solo lectura (`producto.precio`) |
+| Colección | Lista global `productos` | Lista `self._productos` dentro de cada `Inventario` |
+| Validaciones | Condiciones `if/elif` dentro del menú | En `Producto.__init__` y `actualizar_existencias()`: un producto inválido no se puede crear |
+| Cambiar la cantidad | Cualquier línea puede escribir `producto["cantidad"] = -5` | Solo con `actualizar_existencias()`, que rechaza negativos |
+| Organización | Un archivo con todo dentro del `while` | Tres módulos: datos (`producto.py`), colección (`inventario.py`) e interacción (`main.py`) |
+| Texto en un campo numérico | El programa se detiene con `ValueError` | `leer_precio()` y `leer_cantidad()` capturan el error y vuelven a preguntar |
+| Varios inventarios | Habría que duplicar la lista y el código | Basta con crear otro `Inventario()`; cada uno tiene sus datos |
+| Pruebas | Solo por el menú | Las clases también se pueden probar sin el menú (`pruebas_independencia.py`) |
