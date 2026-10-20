@@ -12,6 +12,8 @@ Aplicación de consola que registra, lista, busca, actualiza y elimina productos
 | `pruebas_independencia.py` | Comprueba que dos inventarios no comparten datos. |
 | `pruebas_gestor.py` | Ejecuta las pruebas obligatorias, la comprobación numérica y la de independencia, y genera `EVIDENCIA_PRUEBAS.md`. |
 
+La carpeta [`../gestor_depuracion/`](../gestor_depuracion/) es una copia del proyecto para el reto de depuración: seis errores provocados (lista compartida a nivel de clase, propiedad inexistente, método sin `self`, cantidad negativa aceptada, importación eliminada y total sin multiplicar por cantidad), corregidos y explicados en comentarios.
+
 `Producto` e `Inventario` no usan `input()` ni imprimen nada: solo devuelven valores (`True`/`False`, objetos, `None` o un diccionario), y `main.py` decide qué mostrar.
 
 ## Ejecución
