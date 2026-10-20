@@ -13,7 +13,7 @@ Entradas: `2 | 7 | 0`
 Opción: No hay productos registrados.
 Opción: Productos registrados: 0
 Unidades disponibles: 0
-Valor del inventario: $0
+Valor del inventario: $0.0
 Categorías utilizadas (0): Ninguna
 Opción: Programa finalizado.
 ```
