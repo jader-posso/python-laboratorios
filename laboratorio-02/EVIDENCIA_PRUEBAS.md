@@ -30,28 +30,40 @@ Opción: Programa finalizado.
 
 Esperado: Rechazar código repetido.
 
-Entradas: `1 | P001 | Teclado | Periféricos | 85000 | 4 | 1 | P001 | Otro | Accesorios | 1000 | 1 | 2 | 0`
+Entradas: `1 | P001 | Teclado | Periféricos | 85000 | 4 | 1 | P001 | 2 | 0`
 
 ```text
 Opción: Código: Nombre: Categoría: Precio: Cantidad: Producto registrado.
-Opción: Código: Nombre: Categoría: Precio: Cantidad: El código ya está registrado.
+Opción: Código: El código ya está registrado.
 Opción: P001 - Teclado - Periféricos - $85000.0 - 4 unidades
 Opción: Programa finalizado.
 ```
 
-## 4. Registrar nombre vacío o solo espacios
+## 4. Registrar código vacío
+
+Esperado: Rechazar.
+
+Entradas: `1 |     | 2 | 0`
+
+```text
+Opción: Código: El código no puede estar vacío.
+Opción: No hay productos registrados.
+Opción: Programa finalizado.
+```
+
+## 5. Registrar nombre vacío o solo espacios
 
 Esperado: Rechazar.
 
 Entradas: `1 | P004 |     | Accesorios | 1000 | 1 | 2 | 0`
 
 ```text
-Opción: Código: Nombre: Categoría: Precio: Cantidad: El código y el nombre no pueden estar vacíos.
+Opción: Código: Nombre: Categoría: Precio: Cantidad: El nombre no puede estar vacío.
 Opción: No hay productos registrados.
 Opción: Programa finalizado.
 ```
 
-## 5. Registrar categoría fuera de la tupla
+## 6. Registrar categoría fuera de la tupla
 
 Esperado: Rechazar.
 
@@ -63,7 +75,7 @@ Opción: No hay productos registrados.
 Opción: Programa finalizado.
 ```
 
-## 6. Registrar precio negativo
+## 7. Registrar precio negativo
 
 Esperado: Rechazar.
 
@@ -75,7 +87,7 @@ Opción: No hay productos registrados.
 Opción: Programa finalizado.
 ```
 
-## 7. Registrar cantidad negativa
+## 8. Registrar cantidad negativa
 
 Esperado: Rechazar.
 
@@ -87,7 +99,7 @@ Opción: No hay productos registrados.
 Opción: Programa finalizado.
 ```
 
-## 8. Registrar cantidad cero
+## 9. Registrar cantidad cero
 
 Esperado: Aceptar como producto sin stock.
 
@@ -100,7 +112,7 @@ Opción: Sin existencias:
 Opción: Programa finalizado.
 ```
 
-## 9. Buscar P001
+## 10. Buscar P001
 
 Esperado: Mostrar su registro.
 
@@ -116,7 +128,7 @@ Cantidad: 4
 Opción: Programa finalizado.
 ```
 
-## 10. Buscar código desconocido
+## 11. Buscar código desconocido
 
 Esperado: Informar que no existe.
 
@@ -127,7 +139,7 @@ Opción: Código: No se encontró el producto.
 Opción: Programa finalizado.
 ```
 
-## 11. Actualizar a 10 unidades
+## 12. Actualizar a 10 unidades
 
 Esperado: Cambiar solamente la cantidad.
 
@@ -144,7 +156,7 @@ Cantidad: 10
 Opción: Programa finalizado.
 ```
 
-## 12. Actualizar a -3 unidades
+## 13. Actualizar a -3 unidades
 
 Esperado: Conservar la cantidad anterior.
 
@@ -161,7 +173,7 @@ Cantidad: 4
 Opción: Programa finalizado.
 ```
 
-## 13. Eliminar un producto existente
+## 14. Eliminar un producto existente
 
 Esperado: Borrar el registro.
 
@@ -174,7 +186,7 @@ Opción: No hay productos registrados.
 Opción: Programa finalizado.
 ```
 
-## 14. Eliminar código inexistente
+## 15. Eliminar código inexistente
 
 Esperado: No fallar.
 
@@ -186,7 +198,7 @@ Opción: No hay productos registrados.
 Opción: Programa finalizado.
 ```
 
-## 15. Consultar resumen
+## 16. Consultar resumen
 
 Esperado: Reflejar los datos actuales.
 
@@ -206,7 +218,7 @@ Categorías utilizadas: Periféricos
 Opción: Programa finalizado.
 ```
 
-## 16. Salir
+## 17. Salir
 
 Esperado: Finalizar el ciclo.
 

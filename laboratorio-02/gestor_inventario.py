@@ -21,29 +21,33 @@ while opcion != "0":
 
     if opcion == "1":
         codigo = input("Código: ").strip()
-        nombre = input("Nombre: ").strip()
-        categoria = input("Categoría: ").strip()
-        precio = float(input("Precio: "))
-        cantidad = int(input("Cantidad: "))
+        repetido = False
 
-        if codigo == "" or nombre == "":
-            print("El código y el nombre no pueden estar vacíos.")
-        elif categoria not in CATEGORIAS:
-            print("Categoría no permitida.")
-        elif precio <= 0:
-            print("El precio debe ser mayor que cero.")
-        elif cantidad < 0:
-            print("La cantidad no puede ser negativa.")
+        # El código se revisa antes de pedir los demás datos, para no hacer
+        # escribir todo el producto y rechazarlo al final
+        for producto in productos:
+            if producto["codigo"] == codigo:
+                repetido = True
+                break
+
+        if codigo == "":
+            print("El código no puede estar vacío.")
+        elif repetido:
+            print("El código ya está registrado.")
         else:
-            repetido = False
+            nombre = input("Nombre: ").strip()
+            categoria = input("Categoría: ").strip()
+            precio = float(input("Precio: "))
+            cantidad = int(input("Cantidad: "))
 
-            for producto in productos:
-                if producto["codigo"] == codigo:
-                    repetido = True
-                    break
-
-            if repetido:
-                print("El código ya está registrado.")
+            if nombre == "":
+                print("El nombre no puede estar vacío.")
+            elif categoria not in CATEGORIAS:
+                print("Categoría no permitida.")
+            elif precio <= 0:
+                print("El precio debe ser mayor que cero.")
+            elif cantidad < 0:
+                print("La cantidad no puede ser negativa.")
             else:
                 productos.append({
                     "codigo": codigo,
